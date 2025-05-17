@@ -1,0 +1,2 @@
+# kozukipanda
+codigos en pandas 
