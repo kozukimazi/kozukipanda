@@ -77,11 +77,11 @@ def isname(short_name, long_names=names_list):
             return False
 
 #aplico la conversion por elemento de cada columna        
-if 'P1 (50%)' in df.columns:
-    df['Modulo 2'] = df['P1 (50%)'].apply(conversion2) 
+#if 'P1 (50%)' in df.columns:
+ #   df['Modulo 2'] = df['P1 (50%)'].apply(conversion2) 
 
-if 'P2 (50%)' in df.columns:
-    df['Modulo 3'] = df['P2 (50%)'].apply(conversion2) 
+#if 'P2 (50%)' in df.columns:
+ #   df['Modulo 3'] = df['P2 (50%)'].apply(conversion2) 
 
 names_list = df2['Persona'].tolist()
 
@@ -92,7 +92,7 @@ df['Info3'] = df['Persona'].apply(names3)
 
 print(df)
 print(df.columns)
-df = df.drop(columns=['Observaciones'], errors='ignore')
+#df = df.drop(columns=['Observaciones'], errors='ignore')
 print(df.columns)
 print(df.shape)  
 
@@ -111,5 +111,44 @@ print(conteo2)
 print(conteo3)
 #print(names_list[1])
 
+#here we are going to use format
+#df.to_excel('notasf1.xlsx', index=False)  # index=False avoids saving row numbers
 
-df.to_excel('notasf1.xlsx', index=False)  # index=False avoids saving row numbers
+# Create a Pandas Excel writer using XlsxWriter as the engine.
+writer = pd.ExcelWriter("notasf1.xlsx", engine="xlsxwriter")
+
+# Convert the dataframe to an XlsxWriter Excel object.
+df.to_excel(writer, sheet_name="Sheet1")
+
+# Get the xlsxwriter workbook and worksheet objects.
+workbook = writer.book
+worksheet = writer.sheets["Sheet1"]
+
+# Set the column width and format.
+worksheet.set_column('A:A', 10)
+worksheet.set_column('B:B', 5)
+worksheet.set_column('C:C', 40)
+worksheet.set_column('D:D', 15)
+worksheet.set_column('E:E', 20)
+worksheet.set_column('F:F', 5)
+worksheet.set_column('G:G', 5)
+worksheet.set_column('H:H', 5)
+worksheet.set_column('I:I', 40)
+worksheet.set_column('J:J', 15)
+worksheet.set_column('K:K', 15)
+worksheet.set_column('L:L', 15)
+
+ # Create a border format
+border_format = workbook.add_format({
+        'border': 1,  # 1 = thin border
+        'border_color': 'black'
+})
+    
+# Apply borders to all cells with data
+max_row, max_col = df.shape
+worksheet.conditional_format(0, 0, max_row, max_col, 
+                               {'type': 'no_blanks',
+                                'format': border_format})
+
+# Close the Pandas Excel writer and output the Excel file.
+writer.close()
