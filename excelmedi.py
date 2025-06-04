@@ -19,6 +19,53 @@ def conversion2(x):
         else:
             return 'Exime'
 
+#aqui me defino la función que pondrá las notas en el excel
+def check_phrases(row):
+    """
+    Checks the phrases in a string separated by '|' and returns:
+    - n=0 if phrase1 is "hola" and phrase2 is "chao"
+    - n=1 if phrase1 is "hello" and phrase2 is "goodbye"
+    - n=2 for any other combination
+    """
+    input_string = row['Observaciones']
+    info1 = row['Info1']
+    info2 = row['Info2']
+    info3 = row['Info3']
+    # Split the string by the delimiter '|'
+    phrases = [phrase.strip() for phrase in input_string.split('|')]
+    if len(phrases) == 1:
+        print("No delimiter found, using full string as phrase1")
+        phrase1 = phrases[0]
+        phrase2 = None 
+    else:
+        phrase1, phrase2 = phrases
+
+    phrase11 = "Nivel Básico en Números y Proporcionalidad: Debes realizar el Módulo 2"
+    phrase12 = "Nivel Medio en Números y Proporcionalidad: Te recomendamos realizar el Módulo 2"
+    phrase13 = "Nivel Avanzado en Números y Proporcionalidad: Te eximes del Módulo 2"
+
+    phrase21 = "Nivel Básico en Álgebra y Funciones: Debes realizar el Módulo 3"
+    phrase22 = "Nivel Medio en Álgebra y Funciones: Te recomendamos realizar el Módulo 3"
+    phrase33 = "Nivel Avanzado en Álgebra y Funciones: Te eximes del Módulo 3"
+
+    Info10 = "No rindio"
+    Info11 = "Dada info1" 
+
+    Info20 = "No rindio"
+    Info21 = "Dada info2"
+
+    Info30 = "No rindio"
+    Info31 = "Dada info3"
+
+    #esto tendré que verlo bien
+    if phrase1 == phrase11 and phrase2 == phrase21 and info1 == Info11 and info2 == Info21 and info3 == Info31:
+        return 'Nota 1| Nota 2| Nota 3'
+    elif phrase1 == phrase11 and phrase2 == phrase21 and info1 == Info11 and ( (info2 == Info21 and info3 == Info30) or (info2 == Info20 and info3 == Info31) ):
+        return 'Nota1| Nota 2'
+    else:
+        return 'Value3'
+
+
 #function to know if "jose peres" is in "jose peres duarte"
 def is_name_contained(short_name, long_name):
     return short_name in long_name  
@@ -164,3 +211,5 @@ for col_num, value in enumerate(df.columns.values):
 
 # Close the Pandas Excel writer and output the Excel file.
 writer.close()
+
+
