@@ -57,7 +57,7 @@ def check_phrases(row):
     Info30 = "No rindio"
     Info31 = "Dada info3"
 
-    #esto tendré que verlo bien
+    #esto tendré que verlo bien, pero es la función que añade la columna final
     if phrase1 == phrase11 and phrase2 == phrase21 and info1 == Info11 and info2 == Info21 and info3 == Info31:
         return 'Nota 1| Nota 2| Nota 3'
     elif phrase1 == phrase11 and phrase2 == phrase21 and info1 == Info11 and ( (info2 == Info21 and info3 == Info30) or (info2 == Info20 and info3 == Info31) ):
