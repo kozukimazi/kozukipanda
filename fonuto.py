@@ -7,7 +7,7 @@ df = pd.read_excel('Consolidado Modulo 1 Problema_v3.xlsx')
 
 # Get the position of "nombre"
 nombre_pos = df.columns.get_loc("Nombre del estudiante") - 1  # +1 to place it after "nombre"
-
+#excel
 # Insert a new column (e.g., "nombre_normalizado") next to "nombre"
 #.extract the last numeric part, end of string 
 df.insert(nombre_pos, "Rut falso", df["Nombre del estudiante"].str.extract(r"(\d+)$"))  # Example: uppercase names
